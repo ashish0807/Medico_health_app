@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - MediApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='SCSS/style.css') }}">
+    <link href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet" />
+ 
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='medic2.jpg') }}");
+        }
+    </style>
+</head>
+
+<body>
+
+    
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <i class="far fa-laptop-medical"></i>
+                <h4>Medico</h4>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">How It Works</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="test">Psychology Test</a></li>
+                <li><a href="users" class="active">Users</a></li>
+            </ul>
+
+            <div class="get-started">
+                <a href="predict">Get Started</a>
+            </div>
+        </nav>
+
+        <!-- Video Section -->
+        <div class="video-container">
+            <div class="overlay">
+                <h1>Medico's AI: Revolutionizing care, shaping a healthier future, one innovation at a time.
+                </h1>
+                <p>Get the best medical care at your fingertips</p>
+                <a href="predict">Try Now</a>
+            </div>
+            <video id="myVideo" autoplay loop muted>
+                <source src="{{ url_for('static', filename='Virus.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Features Section -->
+
+        <div class="features" id="how-it-works" style="flex-direction: column-reverse; margin-top: 0%;">
+            <div class="feature-container" style="width: 100%;">
+                <div class="features" style="width: 100%;">
+                    <div class="feature-container" style="width: 100%; ">
+                        <!-- Write a thank you note for users -->
+                        <p>Thank you for using our platform. We hope you found it helpful. If you have any feedback or
+                            suggestions, please let us know. We are always looking to improve our platform.</p>
+                        <h1>All Users</h1>
+
+
+                        <div class="user-card">
+
+                            {% if users %}
+                            {% for user in users %}
+                            <div class="user">
+                                <img src="{{ url_for('static', filename='users.png') }}" alt="user">
+                                <h4>{{ user['name'] }}</h4>
+                                <p>Last Date: {{ user['date'] }}</p>
+                                <p>Total Tests Taken: {{ user['totaltesttaken'] }}</p>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</body>
+
+
+</html>

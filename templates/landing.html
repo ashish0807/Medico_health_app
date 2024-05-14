@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - MediApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='SCSS/style.css') }}">
+    <link href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet" />
+  
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='medic2.jpg') }}");
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <i class="far fa-laptop-medical"></i>
+                <h4>Medico</h4>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/" class="active">How It Works</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="test">Psychology Test</a></li>
+                <li><a href="users">Users</a></li>
+            </ul>
+
+            <div class="get-started">
+                <a href="predict">Get Started</a>
+            </div>
+        </nav>
+
+        <!-- Video Section -->
+        <div class="video-container">
+            <div class="overlay">
+                <h1>Explore Medco's AI-driven healthcare predictions, reshaping the industry one prognosis at a time.
+                </h1>
+                <p>Get the best medical care at your fingertips</p>
+                <a href="predict">Try Now</a>
+            </div>
+            <video id="myVideo" autoplay loop muted>
+                <source src="{{ url_for('static', filename='DNA2.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Features Section -->
+
+        <div class="features" id="how-it-works">
+            <div class="feature-container">
+                <p>Symptoms -> Disease | Description | Precaution | Medications | Workouts | Diets</p>
+                <h1>How does It Works?</h1>
+                <div class="feature">
+
+                    <i class="fas fa-stethoscope"></i>
+
+                    <div class="head">
+                        <h3>Diagnosis</h3>
+                        <p>Get expert consultation from the best doctors in the country</p>
+                    </div>
+
+                </div>
+                <div class="feature">
+                    <i class="fas fa-pills"></i>
+                    <div class="head">
+
+                        <h3>Medication</h3>
+                        <p>Get emergency services at your doorstep</p>
+                    </div>
+
+                </div>
+                <div class="feature">
+                    <i class="fas fa-notes-medical"></i>
+                    <div class="head">
+                        <h3>Medical Records</h3>
+                        <p>Access your medical records from anywhere</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="feature-image">
+                <img src="{{ url_for('static', filename='lungs.png') }}" alt="feature">
+            </div>
+        </div>
+
+
+        <div class="features about" id="how-it-works">
+            <div class="feature-container ">
+                <p class="about-head">Know About Us</p>
+                <h1 class="about-head">About Us</h1>
+                <div class="feature">
+                    <i class="fas fa-eye"></i>
+                    <div class="head">
+                        <h3>About Us</h3>
+                        <p>Welcome to Medical Health center, where health meets technology for a brighter, healthier
+                            future.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-bullseye"></i>
+                    <div class="head">
+                        <h3>Our Vision</h3>
+                        <p>We envision a world where access to healthcare information is a fundamental right.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <i class="fas fa-cogs"></i>
+                    <div class="head">
+                        <h3>How We Do It</h3>
+                        <p>Our platform utilizes machine learning to generate accurate predictions based on your
+                            symptoms.</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="feature-image about">
+                <img src="{{ url_for('static', filename='doc2.png') }}" alt="feature">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+</html>

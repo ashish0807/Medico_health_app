@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - MediApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='SCSS/style.css') }}">
+    <link href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet" />
+   
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='medic2.jpg') }}");
+        }
+
+        .testbg {
+            background-image: url("{{ url_for('static', filename='ppp.png') }}");
+            background-size: contain;
+            background-position: center;
+            border-radius: 12px;
+        }
+
+        .testbg2 {
+            background-image: url("{{ url_for('static', filename='pppp.png') }}");
+            background-size: cover;
+            background-position: top center;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- create a pop card -->
+    <div class="pop-card">
+        <div class="pop-card-content">
+            <h2>Medico Notification!</h2>
+            <p id="news"></p>
+            <button onclick="closePopCard()">Close</button>
+        </div>
+    </div>
+
+    
+
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <i class="far fa-laptop-medical"></i>
+                <h4>Medico</h4>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">How It Works</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="test" class="active">Psychology Test</a></li>
+                <li><a href="users">Users</a></li>
+            </ul>
+
+            <div class="get-started">
+                <a href="predict">Get Started</a>
+            </div>
+        </nav>
+
+
+
+
+        <!-- Features Section -->
+        <div class="features" id="how-it-works" style="flex-direction: column-reverse; margin-top: 0%;">
+            <div class="feature-container" style="width: 100%;">
+                <div class="features" style="width: 100%;">
+                    {% if score is defined %}
+                    <div class="feature-container test testbg2" style="width: 100%; flex-direction: column-reverse;">
+                        {% else %}
+                        <div class="feature-container test testbg" style="width: 100%;">
+                            {% endif %}
+                            <div id="startTestDiv">
+                                {% if score is defined %}
+                                <div style="text-align: start; padding: 10px">
+                                    <h1 style="text-align:center">Question Asked</h1>
+                                     {% for question_number, question_data in psychology_mcq.items() %}
+                                    <h3>{{ loop.index }}. {{ question_data["question"] }}</h3>
+                                    <p -->
+                                        <!-- style="display: flex;display: flex; align-items: center; justify-content: start; gap: 10px"> -->
+                                        <!-- <input type="radio" checked> {{ question_data['correct_answer'] }} -->
+                                    </p>
+                                    {% endfor %}
+
+                                </div>
+                                {% else %}
+                                <div style="display: flex; flex-direction: column; align-items: center;">
+                                    <h1>Are you ready for the Psychology Test?</h1>
+                                    <img style="width: 40%;" src="{{ url_for('static', filename='brain2.png') }}"
+                                        alt="psychology">
+                                    <button id="startTestBtn">Start test</button>
+                                    <p>Total Time Required 10m</p>
+
+                                </div>
+                                {% endif %}
+
+                            </div>
+
+                            <div class="questions-container" style="display: none;">
+                                <h2>Test Started - Psychology <span>Your Test Will end in: <span
+                                            id="timer"></span></span>
+                                </h2>
+                                <hr>
+                                <form id="psychologyTestForm" action="/test" method="POST">
+
+                                    <!-- Ask user email and name -->
+                                    <input type="text" name="name" id="name" placeholder="Enter your name" required>
+                                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+
+                                    {% for question_number, question_data in psychology_mcq.items() %}
+                                    <!-- Add index -->
+                                    <div class="question{{ question_number }} questions">
+                                        <h3>{{ loop.index }}. {{ question_data["question"] }}</h3>
+                                        <p><input type="radio" name="question{{ question_number }}"
+                                                value="{{ question_data['options'][0] }}" required> {{
+                                            question_data["options"][0] }}</p>
+                                        <p><input type="radio" name="question{{ question_number }}"
+                                                value="{{ question_data['options'][1] }}" required> {{
+                                            question_data["options"][1] }}</p>
+                                        <p><input type="radio" name="question{{ question_number }}"
+                                                value="{{ question_data['options'][2] }}" required> {{
+                                            question_data["options"][2] }}</p>
+                                        <p><input type="radio" name="question{{ question_number }}"
+                                                value="{{ question_data['options'][3] }}" required> {{
+                                            question_data["options"][3] }}</p>
+                                        <input type="hidden" name="selected_option{{ question_number }}" value="">
+                                        <input type="hidden" name="correct_answer{{ question_number }}"
+                                            value="{{ question_data['correct_answer'] }}">
+                                    </div>
+                                    {% endfor %}
+                                    <div class="btn">
+                                        <input type="submit" id="submitBtn" value="End & Submit Test">
+                                    </div>
+
+                                </form>
+                            </div>
+
+                            {% if score is defined %}
+                            <div class="subresults">
+                                <h1>Your Test Results</h1>
+                                <img src="{{ url_for('static', filename='brain.png') }}" alt="psychology">
+                                <p>
+                                    <span style="font-weight: 500;"> {{user_email}}</span> <br>
+                                    <span style="font-weight: 600;">{{user_name}}</span> <br>
+                                    <!-- <br>Your Score: {{ score }}/{{ total_questions }} <br> -->
+                                    <br>Based On Your Psychology Test Analysis Now You Can Go For The Dignostic Test<br> 
+                                    <br>Click On Get Started For Dignostic Test<br> 
+                                    <!-- Percentage Score: {{ percentage_score | round(2) }}% -->
+                                </p>
+
+                                <form>
+                                    <p style=" font-weight: 600 !important">Send the result and question on email</p>
+                                    <input type="email" name="email" value=" {{user_email}}" id="email"
+                                        placeholder="Enter your email" required>
+                                    <button type="button" id="send_email" onclick="alert('Email sent')"><i
+                                            class="fas fa-paper-plane"></i> Send
+                                        Email</button>
+                                </form>
+
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function closePopCard() {
+                document.querySelector(".pop-card").style.display = "none";
+            }
+            // Add event listener to start test button
+            document.getElementById("startTestBtn").addEventListener("click", function () {
+                document.querySelector(".questions-container").style.display = "block";
+                document.getElementById("startTestDiv").style.display = "none";
+                // Timer for 30 minutes
+                var countDownDate = new Date().getTime() + (10 * 60 * 1000);
+                var x = setInterval(function () {
+                    var now = new Date().getTime();
+                    var distance = countDownDate - now;
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("timer").innerHTML = "Time's up!";
+                        var popCard = document.querySelector(".pop-card");
+                        if (popCard) {
+                            popCard.style.display = "flex";
+                            document.getElementById("news").innerText = "Time is up! Auto Submitting the test...";
+                        }
+                        document.getElementById("submitBtn").click();
+                    }
+                }, 1000);
+            });
+
+
+        </script>
+
+</body>
+
+</html>

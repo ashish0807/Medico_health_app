@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - MediApp</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='SCSS/style.css') }}">
+  <link href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet" />
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='medic2.jpg') }}");
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <nav>
+      <div class="logo">
+        <i class="far fa-laptop-medical"></i>
+        <h4>Medico</h4>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">How It Works</a></li>
+        <li><a href="about" class="active">About</a></li>
+        <li><a href="test">Psychology Test</a></li>
+        <li><a href="users">Users</a></li>
+      </ul>
+
+      <div class="get-started">
+        <a href="predict">Get Started</a>
+      </div>
+    </nav>
+
+    <!-- Video Section -->
+    <div class="video-container">
+      <div class="overlay">
+        <h1>Medco's AI innovations reshape healthcare, analyzing blood for precise prognoses.
+        </h1>
+        <p>Get the best medical care at your fingertips</p>
+        <a href="predict">Try Now</a></a>
+      </div>
+      <video id="myVideo" autoplay loop muted>
+        <source src="{{ url_for('static', filename='Blood.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- Features Section -->
+
+    <div class="features" id="how-it-works" style="flex-direction: column-reverse; margin-top: 0%;">
+      <div class="feature-container" style="width: 100%;">
+        <div class="features" style="width: 100%;">
+          <div class="feature-container" style="width: 100%;">
+            <p>Symptoms -> Disease | Description | Precaution | Medications | Workouts | Diets</p>
+            <h1>About Us</h1>
+            <div class="feature">
+              <i class="fas fa-hospital"></i>
+              <div class="head">
+                <h3>Welcome</h3>
+                <p>Welcome to the Medical Health Center, where health meets technology for a brighter, healthier future.
+                </p>
+              </div>
+            </div>
+            <div class="feature">
+              <i class="fas fa-eye"></i>
+              <div class="head">
+                <h3>Our Vision</h3>
+                <p>We envision a world where access to healthcare information is not just a luxury but a fundamental
+                  right. Our journey began with a simple yet powerful idea: to empower individuals with the knowledge
+                  and tools they need to take control of their health.</p>
+              </div>
+            </div>
+            <div class="feature">
+              <i class="fas fa-users"></i>
+              <div class="head">
+                <h3>Who We Are</h3>
+                <p>We are a dedicated team of healthcare professionals, data scientists, and technology enthusiasts with
+                  a common goal: to make healthcare accessible, understandable, and personalized for you. With extensive
+                  experience in both healthcare and cutting-edge technology, we've created this platform as a testament
+                  to our commitment to your well-being.</p>
+              </div>
+            </div>
+            <div class="feature">
+              <i class="fas fa-bullseye"></i>
+              <div class="head">
+                <h3>Our Mission</h3>
+                <p>Our mission is to provide you with a seamless and intuitive platform that harnesses the power of
+                  artificial intelligence and machine learning. We aim to help you identify potential health concerns
+                  based on your reported symptoms while offering a wealth of educational resources to enhance your
+                  health literacy.</p>
+              </div>
+            </div>
+            <div class="feature">
+              <i class="fas fa-cogs"></i>
+              <div class="head">
+                <h3>How We Do It</h3>
+                <p>Our platform utilizes a robust machine learning model trained on a vast dataset of symptoms and
+                  diseases. By inputting your symptoms, our system generates accurate predictions about potential
+                  illnesses, enabling you to make informed decisions about your health.</p>
+              </div>
+            </div>
+            <div class="feature">
+              <i class="fas fa-heartbeat"></i>
+              <div class="head">
+                <h3>Your Well-being, Our Priority</h3>
+                <p>Your health is our top priority. We understand that navigating the complexities of healthcare can be
+                  daunting, which is why we go the extra mile to provide not only accurate predictions but also
+                  comprehensive information about each disease. You'll find descriptions, recommended precautions,
+                  medications, dietary advice, and workout tips to support your journey to better health.</p>
+              </div>
+            </div>
+            <div class="feature">
+              <i class="fas fa-users"></i>
+              <div class="head">
+                <h3>Join Us on this Journey</h3>
+                <p>We invite you to explore our platform, engage with our educational content, and take control of your
+                  health journey. Together, we can revolutionize the way individuals access and understand healthcare
+                  information. Thank you for choosing [MedicoApp] as your trusted health companion. We are here
+                  to empower you with knowledge, support, and a brighter, healthier future.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+
+
+</html>

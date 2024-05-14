@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict - MediApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='SCSS/style.css') }}">
+    <link href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet" />
+  
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='medic2.jpg') }}");
+        }
+
+        .results {
+            background-image: url("{{ url_for('static', filename='inj.png') }}");
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- create a pop card -->
+    <div class="pop-card">
+        <div class="pop-card-content">
+            <h2>Medico Notification!</h2>
+            <p id="news"></p>
+            <button onclick="closePopCard()">Close</button>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <i class="far fa-laptop-medical"></i>
+                <h4>Medico</h4>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/" class="active">How It Works</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="test">Psychology Test</a></li>
+                <li><a href="users">Users</a></li>
+            </ul>
+
+
+            <div class="get-started">
+                <a href="predict">Get Started</a>
+            </div>
+        </nav>
+
+        <!-- User Symptoms Input Section -->
+
+        <div class="user-input">
+
+            <div class="column-top">
+                <div class="blur">
+                    <h2>What are your feeling?</h2>
+
+                    <img src="{{ url_for('static', filename='heart4.png') }}" alt="bg">
+                </div>
+
+                <div class="unblur">
+                    <form action="/predict" method="POST">
+                        <div class="select-input">
+
+                            <p>Choose from the list of symptoms below</p>
+
+                            <select id="symptomsSelect">
+                                <option value="" disabled selected>Select symptom</option>
+                                {% for symptom, _ in symptoms_dict.items() %}
+                                <option value="{{ symptom }}">{{ symptom }}</option>
+                                {% endfor %}
+                            </select>
+                            <p id="hint">Please Select a symptom and click on "+ Symptoms" </p>
+                            <div id="selectedSymptoms" class="selected-symptoms"></div>
+
+                            <span>
+                                <button type="button" onclick="addSymptom()"><i class="fas fa-plus"></i>
+                                    Symptom</button>
+                                <button type="button" onclick="SubmitForm()"><i class="far fa-starship-freighter"></i>
+                                    Predict</button>
+                            </span>
+                        </div>
+
+                        <input type="hidden" name="symptoms" id="symptomsInput">
+                        <input type="hidden" id="symptomsDict" value="{{ symptoms_dict|tojson }}">
+                    </form>
+                </div>
+            </div>
+
+
+            <!-- Your Results -->
+            {% if predicted_disease %}
+            <div class="results" style="text-align: center;">
+                <h2>Your Results</h2>
+                <p>Based on the symptoms you provided, we predict that you might have:</p>
+                <p class="symp">Symptom you Entered: {{ symptoms }}</p>
+
+                <div class="card-column">
+                    <div class="card">
+                        <div class="image">
+                            <img src="{{ url_for('static', filename='disease.png') }}" alt="Diabetes">
+                        </div>
+                        <h1>Predicted Disease</h1>
+                        <p>{{ predicted_disease }}</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="image">
+                            <img src="{{ url_for('static', filename='notepad.png') }}" alt="Diabetes">
+                        </div>
+                        <h1>Description</h1>
+                        <p>{{ dis_des }}</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="image">
+                            <img src="{{ url_for('static', filename='precaution.png') }}" alt="Diabetes">
+                        </div>
+                        <h1>Suggested Precaution</h1>
+                        <ul>
+                            {% for i in my_precautions %}
+                            <li>{{ i }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="image">
+                            <img src="{{ url_for('static', filename='medications.png') }}" alt="Diabetes">
+                        </div>
+                        <h1>Medications</h1>
+                        <ul>
+                            {% for i in medications %}
+                            <li>{{ i }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="image">
+                            <img src="{{ url_for('static', filename='workout.png') }}" alt="Diabetes">
+                        </div>
+                        <h1>Workouts</h1>
+                        <ul>
+                            {% for i in workout %}
+                            <li>{{ i }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="image">
+                            <img src="{{ url_for('static', filename='diet.png') }}" alt="Diabetes">
+                        </div>
+                        <h1>Diets</h1>
+                        <ul>
+                            {% for item in my_diet %}
+                            <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- Video Section -->
+        <div class="video-container" style="display: none;">
+            <div class="overlay">
+                <h1>Explore Medco's AI-driven healthcare predictions, reshaping the industry one prognosis at a
+                    time.
+                </h1>
+                <p>Get the best medical care at your fingertips</p>
+                <a href="#">Try Now</a>
+            </div>
+            <video id="myVideo" autoplay loop muted>
+                <source src="{{ url_for('static', filename='DNA2.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+        </div>
+
+        <!-- Features Section -->
+
+    </div>
+
+</body>
+
+<script>
+    function closePopCard() {
+        document.querySelector(".pop-card").style.display = "none";
+    }
+    function SubmitForm() {
+        var selectedSymptomsDiv = document.getElementById("selectedSymptoms");
+        var selectedSymptoms = selectedSymptomsDiv.textContent;
+
+        if (selectedSymptoms === "") {
+            var popCard = document.querySelector(".pop-card");
+            if (popCard) {
+                popCard.style.display = "flex";
+                document.getElementById("news").innerText = "Please select a symptom first!";
+            }
+            return;
+        }
+
+        document.querySelector("form").submit();
+    }
+
+    function addSymptom() {
+        var select = document.getElementById("symptomsSelect");
+        var selectedSymptom = select.value;
+
+        function validateSymptom() {
+            var select = document.getElementById("symptomsSelect");
+            var selectedSymptom = select.value;
+
+            if (selectedSymptom === "") {
+                var popCard = document.querySelector(".pop-card");
+                if (popCard) {
+                    popCard.style.display = "flex";
+                    document.getElementById("news").innerText = "Please select a symptom first!";
+                }
+                return false;
+            }
+
+            return true;
+        }
+
+        if (selectedSymptom) {
+            var selectedSymptomsDiv = document.getElementById("selectedSymptoms");
+            var currentSymptoms = selectedSymptomsDiv.textContent;
+
+            if (currentSymptoms === "") {
+                selectedSymptomsDiv.textContent = selectedSymptom;
+            } else {
+
+                if (currentSymptoms.includes(selectedSymptom)) {
+                    var popCard = document.querySelector(".pop-card");
+                    if (popCard) {
+                        popCard.style.display = "flex";
+                        document.getElementById("news").innerText = "You have already selected this Symptom!";
+                    }
+                    return;
+                }
+
+                selectedSymptomsDiv.textContent += ", " + selectedSymptom;
+            }
+
+            select.value = "";
+        }
+
+        if (selectedSymptomsDiv.textContent.includes(",")) {
+            //document.querySelector(".select-input button").innerText = "Add More Symptoms";
+            hint = document.getElementById("hint");
+            hint.style.display = "none";
+
+        }
+        var selectedSymptoms = selectedSymptomsDiv.textContent.split(",");
+
+        if (selectedSymptoms.length > 5) {
+            // If more than five items are added, show a notification
+            var popCard = document.querySelector(".pop-card");
+            if (popCard) {
+                popCard.style.display = "flex";
+                document.getElementById("news").innerText = "BHAI! Tereko AI nahi Doctor ki Zarurat..!";
+            }
+        }
+
+
+
+        else {
+            hint = document.getElementById("hint");
+            hint.style.display = "block";
+
+        }
+
+        var selectedSymptoms = document.getElementById("selectedSymptoms");
+        selectedSymptoms.innerHTML = selectedSymptoms.textContent.split(", ").map(function (word) {
+            return "<span>" + word + "</span>";
+        }).join(", ");
+        updateSymptomsInput();
+    }
+
+    function updateSymptomsInput() {
+        var selectedSymptomsDiv = document.getElementById("selectedSymptoms");
+        var selectedSymptoms = selectedSymptomsDiv.textContent;
+
+        // Update the hidden input with selected symptoms
+        document.getElementById("symptomsInput").value = selectedSymptoms;
+    }
+
+</script>
+
+</html>
