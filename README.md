@@ -52,3 +52,5 @@ Evolution of Medico for better health outcomes.
 ```
 Take control of your health with Medico, where your well-being is our priority. Empower yourself with the tools and
 insights you need for a healthier life.
+
+# To run this website "python app.py"
