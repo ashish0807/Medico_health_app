@@ -484,7 +484,11 @@ def users():
             users = json.load(file)
     return render_template("users.html", users=users)
 
+
 if __name__ == "__main__":
-    app.run(debug=True, port=0)
-    # from waitress import serve
-    # serve(app, host="0.0.0.0", port=8080)
+    env_post = os.environ.get('PORT')
+
+    if env_post is not None:
+        app.run(debug=True, host="0.0.0.0", port=env_post)
+    else:
+         app.run(debug=True, port=5000)
