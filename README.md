@@ -7,6 +7,7 @@ why Medico stands out:
 
 ## User-Centric Interface
 
+
 ```
 Intuitive and easy-to-use interface for symptom input.
 Effortless navigation enhances user experience.
